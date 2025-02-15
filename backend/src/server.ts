@@ -25,37 +25,40 @@ io.on("connection", (socket: Socket) => {
   console.log("New connection:", socket.id);
 
   // Handle client connection
-  socket.on("register-user", ({ clientId, name }: { clientId: string; name: string }) => {
-    console.log("Client registered:", clientId);
+  socket.on(
+    "register-user",
+    ({ clientId, name }: { clientId: string; name: string }) => {
+      console.log("Client registered:", clientId);
 
-    // Store client information
-    clients.set(clientId, {
-      id: clientId,
-      socketId: socket.id,
-      name: name,
-    });
-
-    // Initialize conversation if it doesn't exist
-    if (!conversations.has(clientId)) {
-      conversations.set(clientId, {
-        clientId,
-        messages: [],
-        unread: 0,
+      // Store client information
+      clients.set(clientId, {
+        id: clientId,
+        socketId: socket.id,
+        name: name,
       });
-    }
 
-    // Join client to their private room
-    socket.join(`user-${clientId}`);
+      // Initialize conversation if it doesn't exist
+      if (!conversations.has(clientId)) {
+        conversations.set(clientId, {
+          clientId,
+          messages: [],
+          unread: 0,
+        });
+      }
 
-    // Notify agent about new client
-    if (agent) {
-      agent.emit("user-connected", {
-        clientId,
-        name,
-        conversation: conversations.get(clientId),
-      });
+      // Join client to their private room
+      socket.join(`user-${clientId}`);
+
+      // Notify agent about new client
+      if (agent) {
+        agent.emit("user-connected", {
+          clientId,
+          name,
+          conversation: conversations.get(clientId),
+        });
+      }
     }
-  });
+  );
 
   // Handle agent connection
   socket.on("register-agent", () => {
@@ -65,57 +68,66 @@ io.on("connection", (socket: Socket) => {
     // Send all existing conversations to agent
     const allConversations = Array.from(conversations.values());
     const allClients = Array.from(clients.values());
-    socket.emit("existing-conversations", { conversations: allConversations, clients: allClients });
+    socket.emit("existing-conversations", {
+      conversations: allConversations,
+      clients: allClients,
+    });
   });
 
   // Handle client message
-  socket.on("user-message", ({ clientId, text }: { clientId: string; text: string }) => {
-    const message: Message = {
-      id: Date.now().toString(),
-      text,
-      clientId,
-      timestamp: new Date(),
-      isFromAgent: false,
-    };
+  socket.on(
+    "user-message",
+    ({ clientId, text }: { clientId: string; text: string }) => {
+      const message: Message = {
+        id: Date.now().toString(),
+        text,
+        clientId,
+        timestamp: new Date(),
+        isFromAgent: false,
+      };
 
-    // Store message in conversation
-    const conversation = conversations.get(clientId);
-    if (conversation) {
-      conversation.messages.push(message);
-      conversation.unread = (conversation.unread || 0) + 1;
+      // Store message in conversation
+      const conversation = conversations.get(clientId);
+      if (conversation) {
+        conversation.messages.push(message);
+        conversation.unread = (conversation.unread || 0) + 1;
 
-      // Send to agent
-      if (agent) {
-        agent.emit("new-user-message", { message, conversation });
+        // Send to agent
+        if (agent) {
+          agent.emit("new-user-message", { message, conversation });
+        }
       }
-    }
 
-    // Broadcast message to client's room
-    io.to(`user-${clientId}`).emit("message", message);
-  });
+      // Broadcast message to client's room
+      io.to(`user-${clientId}`).emit("message", message);
+    }
+  );
 
   // Handle agent message
-  socket.on("agent-message", ({ clientId, text }: { clientId: string; text: string }) => {
-    const message: Message = {
-      id: Date.now().toString(),
-      text,
-      clientId,
-      timestamp: new Date(),
-      isFromAgent: true,
-    };
+  socket.on(
+    "agent-message",
+    ({ clientId, text }: { clientId: string; text: string }) => {
+      const message: Message = {
+        id: Date.now().toString(),
+        text,
+        clientId,
+        timestamp: new Date(),
+        isFromAgent: true,
+      };
 
-    // Store message in conversation
-    const conversation = conversations.get(clientId);
-    if (conversation) {
-      conversation.messages.push(message);
+      // Store message in conversation
+      const conversation = conversations.get(clientId);
+      if (conversation) {
+        conversation.messages.push(message);
 
-      // Send to specific client
-      const client = clients.get(clientId);
-      if (client) {
-        io.to(`user-${clientId}`).emit("message", message);
+        // Send to specific client
+        const client = clients.get(clientId);
+        if (client) {
+          io.to(`user-${clientId}`).emit("message", message);
+        }
       }
     }
-  });
+  );
 
   // Handle disconnect
   socket.on("disconnect", () => {
@@ -141,33 +153,36 @@ io.on("connection", (socket: Socket) => {
   });
 
   // Get conversations for a specific client
-  socket.on("get-client-conversations", ({ clientId }: { clientId: string }, callback) => {
-    console.log("Fetching conversations for client:", clientId);
+  socket.on(
+    "get-client-conversations",
+    ({ clientId }: { clientId: string }, callback) => {
+      console.log("Fetching conversations for client:", clientId);
 
-    // Check if requester is authorized (is the client or the agent)
-    const isClient = clients.get(clientId)?.socketId === socket.id;
-    const isAgent = agent?.id === socket.id;
+      // Check if requester is authorized (is the client or the agent)
+      const isClient = clients.get(clientId)?.socketId === socket.id;
+      const isAgent = agent?.id === socket.id;
 
-    if (!isClient && !isAgent) {
-      return callback({
-        success: false,
-        error: "Unauthorized to view these conversations",
+      if (!isClient && !isAgent) {
+        return callback({
+          success: false,
+          error: "Unauthorized to view these conversations",
+        });
+      }
+
+      const conversation = conversations.get(clientId);
+      if (!conversation) {
+        return callback({
+          success: false,
+          error: "Conversations not found",
+        });
+      }
+
+      callback({
+        success: true,
+        data: conversation,
       });
     }
-
-    const conversation = conversations.get(clientId);
-    if (!conversation) {
-      return callback({
-        success: false,
-        error: "Conversations not found",
-      });
-    }
-
-    callback({
-      success: true,
-      data: conversation,
-    });
-  });
+  );
 });
 
 // Start server

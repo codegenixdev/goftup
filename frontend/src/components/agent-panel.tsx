@@ -4,8 +4,11 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Client, Conversation, Message } from "@/types";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const AgentPanel = () => {
+  const { t } = useTranslation();
+
   const { socket } = useSocket();
   const [conversations, setConversations] = useState<Map<string, Conversation>>(
     new Map()
@@ -75,7 +78,7 @@ const AgentPanel = () => {
     <div className="flex h-screen">
       {/* Clients List */}
       <div className="w-1/4 border-r p-4">
-        <h2 className="text-xl font-bold mb-4">Connected Clients</h2>
+        <h2 className="text-xl font-bold mb-4">{t("activeChats")}</h2>
         <ScrollArea className="h-[calc(100vh-100px)]">
           {Array.from(clients.values()).map((client) => (
             <div

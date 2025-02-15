@@ -1,9 +1,11 @@
 import { AgentPanel } from "@/components/agent-panel";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ClientPanel } from "@/components/client-panel";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { SocketProvider } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useTranslation } from "react-i18next";
 import {
   BrowserRouter,
   Routes,
@@ -14,11 +16,15 @@ import {
 
 const Home = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
-    <div className="h-screen flex items-center justify-center gap-4">
-      <Button onClick={() => navigate("/agent")}>Join as Agent</Button>
-      <Button onClick={() => navigate("/client")}>Join as Client</Button>
+    <div className="h-screen flex flex-col items-center justify-center gap-4">
+      <div className="flex gap-4">
+        <Button onClick={() => navigate("/agent")}>{t("admin")}</Button>
+        <Button onClick={() => navigate("/client")}>{t("client")}</Button>
+      </div>
+      <LanguageSwitcher />
     </div>
   );
 };
