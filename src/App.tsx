@@ -1,10 +1,15 @@
-import { Button } from "@/components/ui/button";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const App = () => {
   return (
-    <>
-      <Button>hi</Button>
-    </>
+    <SidebarProvider>
+      <AppSidebar />
+      <main>
+        <SidebarTrigger />
+        content
+      </main>
+    </SidebarProvider>
   );
 };
 
