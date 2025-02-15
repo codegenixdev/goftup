@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useStore } from "@/useStore";
 
 const items = [
   {
@@ -40,8 +41,10 @@ const items = [
 ];
 
 const AppSidebar = () => {
+  const { direction } = useStore();
+
   return (
-    <Sidebar collapsible="icon" side="right">
+    <Sidebar collapsible="icon" side={direction === "rtl" ? "right" : "left"}>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
