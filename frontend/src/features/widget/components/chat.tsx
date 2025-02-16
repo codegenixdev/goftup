@@ -13,6 +13,7 @@ import { useEffect, useRef } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
+import { MessageBubble } from "@/message-bubble";
 
 const schema = z.object({
   message: z.string().max(1000).min(1),
@@ -103,20 +104,7 @@ const Chat = () => {
     <>
       <ScrollArea className="flex-1 p-4 overflow-y-auto md:max-h-[400px]">
         {messages.map((msg: Message) => (
-          <div className={`flex items-center gap-2 w-fit ms-auto`} key={msg.id}>
-            <span className="text-xs text-muted-foreground">
-              {formatTime(msg.timestamp)}
-            </span>
-            <div
-              className={`mb-2 p-2 rounded-lg max-w-52 break-words ${
-                msg.isFromAgent ? "bg-gray-100" : "bg-widget-primary"
-              }`}
-            >
-              <p className={`text-sm ${msg.isFromAgent ? "" : "text-gray-50"}`}>
-                {msg.text}
-              </p>
-            </div>
-          </div>
+          <MessageBubble message={msg} viewMode="client" key={msg.id} />
         ))}
         <div ref={messagesEndRef} />
       </ScrollArea>

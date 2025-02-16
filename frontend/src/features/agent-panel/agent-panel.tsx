@@ -28,7 +28,7 @@ const AgentPanel = () => {
         />
       </div>
 
-      <div className="w-full shadow-2xl rounded-lg">
+      <div className="w-full shadow-2xl rounded-lg h-full">
         <ChatArea
           selectedClient={selectedClient}
           conversation={
