@@ -16,7 +16,17 @@ const ChatArea = ({
   onSendMessage,
 }: ChatAreaProps) => {
   const [message, setMessage] = useState("");
+  const [localMessages, setLocalMessages] = useState<Message[]>(
+    conversation?.messages || []
+  );
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Update local messages when conversation changes
+  useEffect(() => {
+    if (conversation?.messages) {
+      setLocalMessages(conversation.messages);
+    }
+  }, [conversation]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,10 +34,24 @@ const ChatArea = ({
 
   useEffect(() => {
     scrollToBottom();
-  }, [conversation?.messages]);
+  }, [localMessages]);
 
   const handleSend = () => {
     if (!message.trim()) return;
+
+    // Create a temporary message for immediate display
+    const tempMessage: Message = {
+      id: Date.now().toString(),
+      text: message,
+      clientId: selectedClient!,
+      timestamp: new Date(),
+      isFromAgent: true,
+    };
+
+    // Update local messages immediately
+    setLocalMessages((prev) => [...prev, tempMessage]);
+
+    // Send message to server
     onSendMessage(message);
     setMessage("");
   };
@@ -50,7 +74,7 @@ const ChatArea = ({
 
       <ScrollArea className="flex-1 p-4">
         <div className="space-y-4">
-          {conversation?.messages.map((msg: Message) => (
+          {localMessages.map((msg: Message) => (
             <MessageBubble key={msg.id} message={msg} />
           ))}
           <div ref={messagesEndRef} />
