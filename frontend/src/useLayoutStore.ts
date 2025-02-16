@@ -16,7 +16,7 @@ type Actions = {
 
 type Store = State & Actions;
 
-const useStore = createStore<Store>(
+const useLayoutStore = createStore<Store>(
   (set) => ({
     sidebarOpen: true,
     language: "fa",
@@ -40,4 +40,4 @@ const useStore = createStore<Store>(
   }
 );
 
-export { useStore };
+export { useLayoutStore };

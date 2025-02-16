@@ -7,3 +7,5 @@ gif demo in readme
 animations
 responsive
 client close on escape
+zod persian errors
+use types of backend

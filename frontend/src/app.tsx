@@ -6,7 +6,7 @@ import { SocketProvider } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AgentPanel } from "@/features/agent-panel/agent-panel";
-import { useStore } from "@/useStore";
+import { useLayoutStore } from "@/useLayoutStore";
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -33,7 +33,7 @@ const Home = () => {
 };
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const { sidebarOpen, updateSidebarOpen } = useStore();
+  const { sidebarOpen, updateSidebarOpen } = useLayoutStore();
 
   return (
     <SidebarProvider open={sidebarOpen} onOpenChange={updateSidebarOpen}>

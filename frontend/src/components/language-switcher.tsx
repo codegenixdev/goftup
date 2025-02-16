@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { useStore } from "@/useStore";
+import { useLayoutStore } from "@/useLayoutStore";
 import { Language } from "@/types/language";
 import { Direction } from "@/types/direction";
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
-  const { language, updateLanguage, updateDirection } = useStore();
+  const { language, updateLanguage, updateDirection } = useLayoutStore();
 
   const updateHtmlAttributes = (lang: Language, dir: Direction) => {
     document.documentElement.lang = lang;
