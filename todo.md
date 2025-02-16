@@ -6,3 +6,4 @@ make commit message first letter upper case
 gif demo in readme
 animations
 responsive
+client close on escape

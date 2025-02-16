@@ -3,5 +3,15 @@
   "client": "کاربر",
   "activeChats": "گفتگوهای فعال",
   "chats": "گفتگوها",
-  "home": "خانه"
+  "home": "خانه",
+  "welcome": "به پشتیبانی چت خوش آمدید",
+  "enterName": "لطفاً نام خود را وارد کنید",
+  "namePlaceholder": "نام شما",
+  "startChat": "شروع گفتگو",
+  "onlineSupport": "پشتیبانی آنلاین",
+  "close": "بستن",
+  "messagePlaceholder": "پیام خود را بنویسید...",
+  "send": "ارسال",
+  "openChat": "باز کردن چت",
+  "WeAreAnsweringYourQuestions": "پاسخگوی سوالات شما هستیم"
 }
