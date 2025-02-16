@@ -42,7 +42,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         {/* <SidebarTrigger /> */}
         <AppBreadcrumbs />
         <div className="shadow-2xl rounded-xl overflow-hidden size-full">
-          <SocketProvider>{children}</SocketProvider>
+          {children}
         </div>
       </main>
     </SidebarProvider>
@@ -57,17 +57,19 @@ const App = () => {
         <Route
           path="/agent"
           element={
-            <Layout>
-              <AgentPanel />
-            </Layout>
+            <SocketProvider>
+              <Layout>
+                <AgentPanel />
+              </Layout>
+            </SocketProvider>
           }
         />
         <Route
           path="/client"
           element={
-            <Layout>
+            <SocketProvider>
               <ClientPanel />
-            </Layout>
+            </SocketProvider>
           }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
