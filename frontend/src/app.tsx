@@ -1,11 +1,12 @@
-import { AgentPanel } from "@/components/agent-panel";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ClientPanel } from "@/components/client-panel";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SocketProvider } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AgentPanel } from "@/features/agent-panel/agent-panel";
 import { useStore } from "@/useStore";
+import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import {
   BrowserRouter,
@@ -30,14 +31,14 @@ const Home = () => {
   );
 };
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: ReactNode }) => {
   const { sidebarOpen, updateSidebarOpen } = useStore();
 
   return (
     <SidebarProvider open={sidebarOpen} onOpenChange={updateSidebarOpen}>
       <AppSidebar />
-      <main>
-        <SidebarTrigger />
+      <main className="w-full shadow-2xl h-[calc(100vh-64px)] m-8 rounded-xl overflow-hidden">
+        {/* <SidebarTrigger /> */}
         <SocketProvider>{children}</SocketProvider>
       </main>
     </SidebarProvider>
