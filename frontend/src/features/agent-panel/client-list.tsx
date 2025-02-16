@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Client } from "@/types";
+import { Client } from "@/types/types";
 import { useTranslation } from "react-i18next";
 
 interface ClientsListProps {

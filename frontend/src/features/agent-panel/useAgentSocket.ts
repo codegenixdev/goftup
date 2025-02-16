@@ -1,6 +1,6 @@
 import { useSocket } from "@/components/socket-context";
 import { useState, useEffect } from "react";
-import { Client, Conversation } from "@/types";
+import { Client, Conversation } from "@/types/types";
 import { SOCKET_EVENTS } from "@/features/agent-panel/constants";
 
 const useAgentSocket = () => {

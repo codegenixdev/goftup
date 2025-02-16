@@ -1,7 +1,7 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageBubble } from "@/features/agent-panel/message-bubble";
 import { MessageInput } from "@/features/agent-panel/message-input";
-import { Conversation, Message } from "@/types";
+import { Conversation, Message } from "@/types/types";
 import { useEffect, useRef, useState } from "react";
 
 type ChatAreaProps = {

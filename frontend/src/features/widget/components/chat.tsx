@@ -1,21 +1,21 @@
 import { useSocket } from "@/components/socket-context";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SOCKET_EVENTS } from "@/features/agent-panel/constants";
-import { Message } from "@/types";
-import { useClientStore } from "@/useClientStore";
+import { Message } from "@/types/types";
+import { useClientStore } from "@/features/widget/hooks/useClientStore";
+import { useDateFormatters } from "@/useDateFormatters";
 import { useLayoutStore } from "@/useLayoutStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SendHorizontal, X } from "lucide-react";
+import { SendHorizontal } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
 const schema = z.object({
-  message: z.string().max(1000),
+  message: z.string().max(1000).min(1),
 });
 type Schema = z.infer<typeof schema>;
 const defaultValues: Schema = { message: "" };
@@ -24,6 +24,7 @@ const Chat = () => {
   const { t } = useTranslation();
   const { direction } = useLayoutStore();
   const { socket } = useSocket();
+  const { formatTime } = useDateFormatters();
 
   const {
     clientId,
@@ -32,6 +33,7 @@ const Chat = () => {
     name,
     messages,
     updateMessages,
+    addMessage,
   } = useClientStore();
 
   const form = useForm<Schema>({
@@ -68,7 +70,7 @@ const Chat = () => {
     socket.emit(SOCKET_EVENTS.REGISTER_USER, { clientId, name });
 
     socket.on(SOCKET_EVENTS.MESSAGE, (msg: Message) => {
-      updateMessages([...messages, msg]);
+      addMessage(msg);
     });
 
     socket.emit(
@@ -99,44 +101,21 @@ const Chat = () => {
 
   return (
     <>
-      <div className="p-4 border-b flex justify-between items-center bg-widget-primary">
-        <div className="flex items-center gap-2">
-          <Avatar className="size-10" online>
-            <AvatarFallback>JD</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col gap-1">
-            <h2 className="text-sm font-semibold text-gray-50">
-              {t("onlineSupport")}
-            </h2>
-            <p className="text-xs text-gray-100">
-              {t("WeAreAnsweringYourQuestions")}
-            </p>
-          </div>
-        </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => updateIsWidgetOpen(false)}
-          className="h-8 w-8 p-0"
-          aria-label={t("close")}
-        >
-          <X />
-        </Button>
-      </div>
-
-      <ScrollArea className="flex-1 p-4">
+      <ScrollArea className="flex-1 p-4 overflow-y-auto md:max-h-[400px]">
         {messages.map((msg: Message) => (
-          <div
-            key={msg.id}
-            className={`mb-2 p-2 rounded-lg ${
-              msg.isFromAgent ? "bg-gray-100 mr-auto" : "bg-blue-100 ml-auto"
-            }`}
-            style={{ maxWidth: "80%" }}
-          >
-            <p className="text-sm">{msg.text}</p>
-            <span className="text-xs text-gray-500">
-              {new Date(msg.timestamp).toLocaleTimeString()}
+          <div className={`flex items-center gap-2 w-fit ms-auto`} key={msg.id}>
+            <span className="text-xs text-muted-foreground">
+              {formatTime(msg.timestamp)}
             </span>
+            <div
+              className={`mb-2 p-2 rounded-lg max-w-52 break-words ${
+                msg.isFromAgent ? "bg-gray-100" : "bg-widget-primary"
+              }`}
+            >
+              <p className={`text-sm ${msg.isFromAgent ? "" : "text-gray-50"}`}>
+                {msg.text}
+              </p>
+            </div>
           </div>
         ))}
         <div ref={messagesEndRef} />
@@ -144,18 +123,15 @@ const Chat = () => {
 
       <div className="p-4 border-t">
         <FormProvider {...form}>
-          <form
-            className="flex gap-2 items-center"
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form className="flex gap-2" onSubmit={form.handleSubmit(onSubmit)}>
             <Input<Schema>
+              className="text-sm h-12"
+              widgetTheme
               name="message"
               placeholder={t("messagePlaceholder")}
-              className="flex-1 text-sm h-12"
             />
             <Button
               className="bg-widget-primary hover:bg-widget-primary/90 rounded-full size-12"
-              size="sm"
               type="submit"
             >
               <SendHorizontal

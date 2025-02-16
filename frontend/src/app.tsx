@@ -1,36 +1,26 @@
 import { AppBreadcrumbs } from "@/components/app-breadcrumbs";
 import { AppSidebar } from "@/components/app-sidebar";
-import { ClientPanel } from "@/components/client-panel";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SocketProvider } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AgentPanel } from "@/features/agent-panel/agent-panel";
+import { Navbar } from "@/features/widget/components/navbar";
+import { Widget } from "@/features/widget/components/widget";
+import { Landing } from "@/landing";
+import { ThemeProvider } from "@/theme-provider";
 import { useLayoutStore } from "@/useLayoutStore";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
   BrowserRouter,
-  Routes,
-  Route,
   Navigate,
+  Route,
+  Routes,
   useNavigate,
 } from "react-router";
-
-const Home = () => {
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-
-  return (
-    <div className="h-screen flex flex-col items-center justify-center gap-4">
-      <div className="flex gap-4">
-        <Button onClick={() => navigate("/agent")}>{t("admin")}</Button>
-        <Button onClick={() => navigate("/client")}>{t("client")}</Button>
-      </div>
-      <LanguageSwitcher />
-    </div>
-  );
-};
+import { z } from "zod";
+import { makeZodI18nMap } from "zod-i18n-map";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const { sidebarOpen, updateSidebarOpen } = useLayoutStore();
@@ -48,31 +38,40 @@ const Layout = ({ children }: { children: ReactNode }) => {
 };
 
 const App = () => {
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    z.setErrorMap(makeZodI18nMap({ t }));
+  }, [t]);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/agent"
-          element={
-            <SocketProvider>
-              <Layout>
-                <AgentPanel />
-              </Layout>
-            </SocketProvider>
-          }
-        />
-        <Route
-          path="/client"
-          element={
-            <SocketProvider>
-              <ClientPanel />
-            </SocketProvider>
-          }
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <SocketProvider>
+      <ThemeProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/admin"
+              element={
+                <Layout>
+                  <AgentPanel />
+                </Layout>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <Landing />
+                  <Widget />
+                </>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </SocketProvider>
   );
 };
 

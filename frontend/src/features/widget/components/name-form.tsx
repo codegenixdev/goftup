@@ -4,7 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useClientStore } from "@/useClientStore";
+import { useClientStore } from "@/features/widget/hooks/useClientStore";
 
 const schema = z.object({
   name: z.string().max(255).min(1),
@@ -29,17 +29,17 @@ const NameForm = () => {
 
   return (
     <div className="p-4 flex flex-col gap-4">
-      <h2 className="text-lg font-semibold">{t("welcome")}</h2>
-      <p className="text-sm text-gray-500">{t("enterName")}</p>
+      <p className="text-sm">{t("enterName")}</p>
       <FormProvider {...form}>
         <form
           className="flex flex-col gap-3"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <Input<Schema>
+            className="flex-1"
             name="name"
             placeholder={t("namePlaceholder")}
-            className="flex-1"
+            widgetTheme
           />
           <Button
             className="bg-widget-primary hover:bg-widget-primary/90"

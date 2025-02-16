@@ -1,4 +1,4 @@
-import { Message } from "@/types";
+import { Message } from "@/types/types";
 
 type MessageBubbleProps = {
   message: Message;
