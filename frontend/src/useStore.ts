@@ -21,6 +21,7 @@ const useStore = createStore<Store>(
     sidebarOpen: true,
     language: "fa",
     direction: "rtl",
+
     updateSidebarOpen: (is) =>
       set((state) => {
         state.sidebarOpen = is;

@@ -1,21 +1,21 @@
-type Message = {
+interface Message {
   id: string;
   text: string;
   clientId: string;
   timestamp: Date;
   isFromAgent: boolean;
-};
+}
 
-type Conversation = {
+interface Conversation {
   clientId: string;
   messages: Message[];
   unread: number;
-};
+}
 
-type Client = {
+interface Client {
   id: string;
   socketId: string;
   name: string;
-};
+}
 
 export { type Message, type Conversation, type Client };

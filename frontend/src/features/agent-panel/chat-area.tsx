@@ -1,8 +1,8 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useEffect, useRef, useState } from "react";
-import { Message, Conversation } from "@/types";
 import { MessageBubble } from "@/features/agent-panel/message-bubble";
 import { MessageInput } from "@/features/agent-panel/message-input";
+import { Conversation, Message } from "@/types";
+import { useEffect, useRef, useState } from "react";
 
 type ChatAreaProps = {
   selectedClient: string | null;
@@ -41,8 +41,8 @@ const ChatArea = ({
   }
 
   return (
-    <div className="flex-1 flex flex-col">
-      <div className="p-3 border-b">
+    <div className="flex flex-col">
+      <div className="p-3">
         <h3 className="font-semibold">
           Chat with {conversation?.clientName || "Client"}
         </h3>

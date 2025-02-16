@@ -41,9 +41,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <main className="w-full h-[calc(100vh-64px)] m-8">
         {/* <SidebarTrigger /> */}
         <AppBreadcrumbs />
-        <div className="shadow-2xl rounded-xl overflow-hidden size-full">
-          {children}
-        </div>
+        <div className="rounded-xl size-full">{children}</div>
       </main>
     </SidebarProvider>
   );

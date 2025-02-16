@@ -40,7 +40,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
     return () => {
       newSocket.close();
     };
-  }, []);
+  }, [setSocket, setIsConnected]);
 
   return (
     <SocketContext.Provider value={{ socket, isConnected }}>

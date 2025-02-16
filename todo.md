@@ -4,3 +4,5 @@ eslint
 sort tailwind classes
 make commit message first letter upper case
 gif demo in readme
+animations
+responsive

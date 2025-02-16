@@ -19,19 +19,24 @@ const AgentPanel = () => {
   };
 
   return (
-    <div className="flex h-full">
-      <ClientsList
-        clients={clients}
-        selectedClient={selectedClient}
-        onClientSelect={setSelectedClient}
-      />
-      <ChatArea
-        selectedClient={selectedClient}
-        conversation={
-          selectedClient ? conversations.get(selectedClient) : undefined
-        }
-        onSendMessage={handleSendMessage}
-      />
+    <div className="flex h-full gap-4">
+      <div className="w-96 shadow-2xl rounded-lg">
+        <ClientsList
+          clients={clients}
+          selectedClient={selectedClient}
+          onClientSelect={setSelectedClient}
+        />
+      </div>
+
+      <div className="w-full shadow-2xl rounded-lg">
+        <ChatArea
+          selectedClient={selectedClient}
+          conversation={
+            selectedClient ? conversations.get(selectedClient) : undefined
+          }
+          onSendMessage={handleSendMessage}
+        />
+      </div>
     </div>
   );
 };
