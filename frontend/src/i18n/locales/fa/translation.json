@@ -1,5 +1,7 @@
 {
   "admin": "ادمین",
   "client": "کاربر",
-  "activeChats": "گفتگو های فعال"
+  "activeChats": "",
+  "chats": "گفتگوها",
+  "home": "خانه"
 }

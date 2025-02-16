@@ -2,9 +2,19 @@
 
 @plugin "tailwindcss-animate";
 
+@font-face {
+  font-family: "IRANSansXV";
+  src: url("../public/IRANSansXV.woff");
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  font-family: IRANSansXV;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
   --background: hsl(0 0% 100%);
   --foreground: hsl(240 10% 3.9%);
   --card: hsl(0 0% 100%);

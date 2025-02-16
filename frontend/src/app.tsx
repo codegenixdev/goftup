@@ -1,3 +1,4 @@
+import { AppBreadcrumbs } from "@/components/app-breadcrumbs";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ClientPanel } from "@/components/client-panel";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -37,9 +38,12 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <SidebarProvider open={sidebarOpen} onOpenChange={updateSidebarOpen}>
       <AppSidebar />
-      <main className="w-full shadow-2xl h-[calc(100vh-64px)] m-8 rounded-xl overflow-hidden">
+      <main className="w-full h-[calc(100vh-64px)] m-8">
         {/* <SidebarTrigger /> */}
-        <SocketProvider>{children}</SocketProvider>
+        <AppBreadcrumbs />
+        <div className="shadow-2xl rounded-xl overflow-hidden size-full">
+          <SocketProvider>{children}</SocketProvider>
+        </div>
       </main>
     </SidebarProvider>
   );
