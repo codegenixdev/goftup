@@ -24,7 +24,7 @@
 	"demoTitle": "Online Chat Demo Page",
 	"chat": "Chat",
 	"demoDescription": "This is a demo page to showcase online chat capabilities",
-	"demoInstruction": "💡 Click on the chat icon in the bottom right corner to start a conversation",
+	"demoInstruction": "💡 Click on the chat icon in the bottom left corner to start a conversation",
 	"adminInstruction": "📊 Click to view admin panel or access through navbar",
 	"typeAMessage": "Type your message",
 	"createNewChat": "Create New Chat",

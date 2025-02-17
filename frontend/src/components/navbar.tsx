@@ -36,7 +36,7 @@ const Navbar = () => {
 							{t("nav.home")}
 						</Link>
 						<Link to="/admin" className={getLinkClasses("/admin")}>
-							{t("nav.panel")}
+							{t("chats")}
 						</Link>
 					</div>
 
