@@ -1,3 +1,14 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -69,17 +80,37 @@ const ChatList = ({
                       </p>
                     </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="size-8 flex-shrink-0"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onRemoveClient(client.id);
-                    }}
-                  >
-                    <X className="size-4" />
-                  </Button>
+
+                  <AlertDialog>
+                    <AlertDialogTrigger>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-8 flex-shrink-0"
+                      >
+                        <X className="size-4" />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>{t("areYouSure")}</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          {t("deleteChatWarning")}
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onRemoveClient(client.id);
+                          }}
+                        >
+                          {t("continue")}
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
                 {index < Array.from(clients.values()).length - 1 && (
                   <Separator className="my-2" />
