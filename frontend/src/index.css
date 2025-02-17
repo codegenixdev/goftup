@@ -1,8 +1,4 @@
 @import "tailwindcss";
-html,
-body {
-	overflow: hidden;
-}
 
 @plugin "tailwindcss-animate";
 
