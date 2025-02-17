@@ -92,7 +92,7 @@ const ChatArea = ({
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-[calc(100vh-134px)]">
       <div
         className="flex-1 overflow-hidden relative"
         style={{ height: "calc(100vh - 200px)" }}

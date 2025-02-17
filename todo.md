@@ -3,7 +3,6 @@ sort tailwind classes
 animations
 responsive
 client close on escape
-zod persian errors
 use types of backend
 cursor pointers for buttons
 add here or some cards for widgets

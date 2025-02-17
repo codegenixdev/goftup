@@ -20,8 +20,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-card shadow-md sticky top-0 rounded-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="w-full bg-card shadow-md sticky top-0">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-4">
             <Link to="/" className={getLinkClasses("/")}>
