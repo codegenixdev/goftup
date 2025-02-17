@@ -1,3 +1,4 @@
+change repo name to goftup
 eslint
 sort tailwind classes
 

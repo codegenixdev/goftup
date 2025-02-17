@@ -1,0 +1,19 @@
+{
+	"printWidth": 80,
+	"endOfLine": "auto",
+	"tabWidth": 2,
+	"useTabs": true,
+	"trailingComma": "es5",
+	"plugins": ["@trivago/prettier-plugin-sort-imports"],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true,
+	"importOrderGroupNamespaceSpecifiers": true,
+	"importOrder": [
+		"^@/features/(.*)$",
+		"^@/hooks/(.*)$",
+		"^@/(.*)$",
+		"<THIRD_PARTY_MODULES>",
+		"^@ui/(.  *)$",
+		"^[./]"
+	]
+}
