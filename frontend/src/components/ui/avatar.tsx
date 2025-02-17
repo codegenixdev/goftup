@@ -1,14 +1,13 @@
-import * as React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
 import { cn } from "@/lib/utils";
+import { ComponentProps } from "react";
 
-interface AvatarProps
-  extends React.ComponentProps<typeof AvatarPrimitive.Root> {
+type AvatarProps = ComponentProps<typeof AvatarPrimitive.Root> & {
   online?: boolean;
-}
+};
 
-function Avatar({ className, online, ...props }: AvatarProps) {
+const Avatar = ({ className, online, ...props }: AvatarProps) => {
   return (
     <div className="relative">
       <AvatarPrimitive.Root
@@ -29,12 +28,11 @@ function Avatar({ className, online, ...props }: AvatarProps) {
       )}
     </div>
   );
-}
+};
 
-function AvatarImage({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+type AvatarImageProps = ComponentProps<typeof AvatarPrimitive.Image>;
+
+const AvatarImage = ({ className, ...props }: AvatarImageProps) => {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
@@ -42,12 +40,11 @@ function AvatarImage({
       {...props}
     />
   );
-}
+};
 
-function AvatarFallback({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
+type AvatarFallbackProps = ComponentProps<typeof AvatarPrimitive.Fallback>;
+
+const AvatarFallback = ({ className, ...props }: AvatarFallbackProps) => {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
@@ -58,6 +55,6 @@ function AvatarFallback({
       {...props}
     />
   );
-}
+};
 
 export { Avatar, AvatarImage, AvatarFallback };

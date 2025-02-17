@@ -1,5 +1,5 @@
-import { Message } from "@/types/types";
-import { useDateFormatters } from "@/useDateFormatters";
+import { useDateFormatters } from "@/hooks/useDateFormatters";
+import { Message } from "@/types/message";
 
 type MessageProps = {
   message: Message;

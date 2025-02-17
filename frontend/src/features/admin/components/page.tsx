@@ -1,20 +1,20 @@
-import { useSocket } from "@/components/socket-context";
+import { useSocketContext } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
-import { ChatArea } from "@/features/agent-panel/chat-area";
-import { ClientsList } from "@/features/agent-panel/client-list";
-import { SOCKET_EVENTS } from "@/features/agent-panel/constants";
-import { useAgentSocket } from "@/features/agent-panel/useAgentSocket";
-import { usePageTitle } from "@/usePageTitle";
+import { Chat } from "@/features/admin/components/chat";
+import { ChatList } from "@/features/admin/components/chat-list";
+import { SOCKET_EVENTS } from "@/lib/constants";
+import { useSocket } from "@/hooks/useSocket";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const AgentPanel = () => {
+const Page = () => {
   usePageTitle("adminTitle");
 
   const { t } = useTranslation();
-  const { socket } = useSocket();
-  const { conversations, clients, lastDisconnectedClient } = useAgentSocket();
+  const { socket } = useSocketContext();
+  const { conversations, clients, lastDisconnectedClient } = useSocket();
   const [selectedClient, setSelectedClient] = useState<string | null>(null);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const AgentPanel = () => {
           selectedClient ? "hidden md:block" : "block"
         } w-full md:w-96 shadow-2xl rounded-lg bg-card`}
       >
-        <ClientsList
+        <ChatList
           clients={clients}
           selectedClient={selectedClient}
           onClientSelect={setSelectedClient}
@@ -63,7 +63,7 @@ const AgentPanel = () => {
             </Button>
           </div>
         )}
-        <ChatArea
+        <Chat
           selectedClient={selectedClient}
           conversation={
             selectedClient ? conversations.get(selectedClient) : undefined
@@ -75,4 +75,4 @@ const AgentPanel = () => {
   );
 };
 
-export { AgentPanel };
+export { Page as Admin };

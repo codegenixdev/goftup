@@ -1,5 +1,5 @@
 import { createStore } from "@/lib/createStore";
-import { Message } from "@/types/types";
+import { Message } from "@/types/message";
 import { nanoid } from "nanoid";
 
 type State = {

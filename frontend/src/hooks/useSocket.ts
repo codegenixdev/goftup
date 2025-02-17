@@ -1,10 +1,16 @@
-import { useSocket } from "@/components/socket-context";
+import { useSocketContext } from "@/components/socket-context";
+import { SOCKET_EVENTS } from "@/lib/constants";
+import { Client } from "@/types/client";
+import { Conversation } from "@/types/conversation";
+import { ExistingConversationsPayload } from "@/types/existingConversationPayload";
+import { Message } from "@/types/message";
+import { NewUserMessagePayload } from "@/types/newUserMessagePayload";
+import { UserConnectedPayload } from "@/types/userConnectedPayload";
+import { UserDisconnectedPayload } from "@/types/userDisconnectedPayload";
 import { useState, useEffect } from "react";
-import { Client, Conversation } from "@/types/types";
-import { SOCKET_EVENTS } from "@/features/agent-panel/constants";
 
-const useAgentSocket = () => {
-  const { socket } = useSocket();
+const useSocket = () => {
+  const { socket } = useSocketContext();
   const [conversations, setConversations] = useState<Map<string, Conversation>>(
     new Map()
   );
@@ -21,7 +27,7 @@ const useAgentSocket = () => {
     const handleExistingConversations = ({
       conversations: convs,
       clients: clnts,
-    }) => {
+    }: ExistingConversationsPayload) => {
       const conversationsMap = new Map(
         convs.map((conv) => [conv.clientId, conv])
       );
@@ -30,17 +36,19 @@ const useAgentSocket = () => {
       setClients(clientsMap);
     };
 
-    const handleNewUserMessage = ({ message, conversation }) => {
+    const handleNewUserMessage = ({ conversation }: NewUserMessagePayload) => {
       setConversations((prev) => {
         const newMap = new Map(prev);
         const existingConversation = newMap.get(conversation.clientId);
         if (existingConversation) {
           const updatedMessages = [
-            ...new Set([
-              ...existingConversation.messages,
-              ...conversation.messages,
-            ]),
-          ];
+            ...new Set(
+              [...existingConversation.messages, ...conversation.messages].map(
+                (msg) => JSON.stringify(msg)
+              )
+            ),
+          ].map((msg) => JSON.parse(msg) as Message);
+
           newMap.set(conversation.clientId, {
             ...conversation,
             messages: updatedMessages,
@@ -52,14 +60,18 @@ const useAgentSocket = () => {
       });
     };
 
-    const handleUserConnected = ({ clientId, name, conversation }) => {
+    const handleUserConnected = ({
+      clientId,
+      name,
+      conversation,
+    }: UserConnectedPayload) => {
       setClients((prev) =>
         new Map(prev).set(clientId, { id: clientId, name, socketId: "" })
       );
       setConversations((prev) => new Map(prev).set(clientId, conversation));
     };
 
-    const handleUserDisconnected = ({ clientId }) => {
+    const handleUserDisconnected = ({ clientId }: UserDisconnectedPayload) => {
       setClients((prev) => {
         const newMap = new Map(prev);
         newMap.delete(clientId);
@@ -89,7 +101,7 @@ const useAgentSocket = () => {
     };
   }, [socket]);
 
-  const sendMessage = (clientId: string, text: string) => {
+  const sendMessage = (clientId: string, text: string): void => {
     if (!socket) return;
     socket.emit(SOCKET_EVENTS.AGENT_MESSAGE, { clientId, text });
   };
@@ -102,4 +114,4 @@ const useAgentSocket = () => {
   };
 };
 
-export { useAgentSocket };
+export { useSocket };

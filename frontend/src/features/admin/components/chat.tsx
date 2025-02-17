@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageBubble } from "@/message-bubble";
-import { Conversation, Message } from "@/types/types";
+import { MessageBubble } from "@/components/message-bubble";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -10,6 +9,8 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { Conversation } from "@/types/conversation";
+import { Message } from "@/types/message";
 
 const schema = z.object({
   message: z.string().max(1000).min(1).trim(),
@@ -20,17 +21,13 @@ const defaultValues: Schema = {
   message: "",
 };
 
-type ChatAreaProps = {
+type ChatProps = {
   selectedClient: string | null;
   conversation?: Conversation;
   onSendMessage: (message: string) => void;
 };
 
-const ChatArea = ({
-  selectedClient,
-  conversation,
-  onSendMessage,
-}: ChatAreaProps) => {
+const Chat = ({ selectedClient, conversation, onSendMessage }: ChatProps) => {
   const { t } = useTranslation();
 
   const [autoAnimateRef] = useAutoAnimate();
@@ -179,4 +176,4 @@ const ChatArea = ({
   );
 };
 
-export { ChatArea };
+export { Chat };

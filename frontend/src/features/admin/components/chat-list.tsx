@@ -1,20 +1,20 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Client } from "@/types/types";
+import { Client } from "@/types/client";
 import { useTranslation } from "react-i18next";
 
-interface ClientsListProps {
+type ChatListProps = {
   clients: Map<string, Client>;
   selectedClient: string | null;
   onClientSelect: (clientId: string) => void;
-}
+};
 
-const ClientsList = ({
+const ChatList = ({
   clients,
   selectedClient,
   onClientSelect,
-}: ClientsListProps) => {
+}: ChatListProps) => {
   const { t } = useTranslation();
 
   const getInitials = (name: string) => {
@@ -68,4 +68,4 @@ const ClientsList = ({
   );
 };
 
-export { ClientsList };
+export { ChatList };

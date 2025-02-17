@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { useLayoutStore } from "@/useLayoutStore";
+import { useGlobalStore } from "@/hooks/useGlobalStore";
 import { Language } from "@/types/language";
 import { Direction } from "@/types/direction";
 
@@ -20,7 +20,7 @@ type LanguageOption = {
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
   const { language, updateLanguage, updateDirection, direction } =
-    useLayoutStore();
+    useGlobalStore();
 
   const languageOptions: LanguageOption[] = [
     { value: "en", label: "English" },

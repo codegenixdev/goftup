@@ -1,8 +1,8 @@
-import { usePageTitle } from "@/usePageTitle";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
-const Landing = () => {
+const LandingDemo = () => {
   const { t } = useTranslation();
   usePageTitle();
 
@@ -30,4 +30,4 @@ const Landing = () => {
   );
 };
 
-export { Landing };
+export { LandingDemo };

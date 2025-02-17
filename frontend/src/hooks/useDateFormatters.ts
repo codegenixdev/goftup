@@ -1,10 +1,10 @@
 import { toPersianNumbers } from "@/lib/utils";
-import { useLayoutStore } from "@/useLayoutStore";
+import { useGlobalStore } from "@/hooks/useGlobalStore";
 import { format } from "date-fns";
 import { faIR, enUS } from "date-fns/locale";
 
 const useDateFormatters = () => {
-  const { language } = useLayoutStore();
+  const { language } = useGlobalStore();
 
   const formatTime = (date: Date) => {
     const formattedTime = format(date, "hh:mm a", {

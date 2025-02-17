@@ -1,5 +1,5 @@
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { ThemeToggle } from "@/theme-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 

@@ -1,14 +1,12 @@
-import * as React from "react";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 import { cn } from "@/lib/utils";
-import { useLayoutStore } from "@/useLayoutStore";
+import { useGlobalStore } from "@/hooks/useGlobalStore";
+import { ComponentProps } from "react";
 
-function ScrollArea({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {
-  const { direction } = useLayoutStore();
+type ScrollAreaProps = ComponentProps<typeof ScrollAreaPrimitive.Root>;
+
+const ScrollArea = ({ className, children, ...props }: ScrollAreaProps) => {
+  const { direction } = useGlobalStore();
 
   return (
     <ScrollAreaPrimitive.Root
@@ -27,14 +25,17 @@ function ScrollArea({
       <ScrollAreaPrimitive.Corner />
     </ScrollAreaPrimitive.Root>
   );
-}
+};
 
-function ScrollBar({
+type ScrollBarProps = ComponentProps<
+  typeof ScrollAreaPrimitive.ScrollAreaScrollbar
+> & {};
+const ScrollBar = ({
   className,
   orientation = "vertical",
   ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.ScrollAreaScrollbar> & {}) {
-  const { direction } = useLayoutStore();
+}: ScrollBarProps) => {
+  const { direction } = useGlobalStore();
 
   return (
     <ScrollAreaPrimitive.ScrollAreaScrollbar
@@ -58,6 +59,6 @@ function ScrollBar({
       />
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
   );
-}
+};
 
 export { ScrollArea, ScrollBar };

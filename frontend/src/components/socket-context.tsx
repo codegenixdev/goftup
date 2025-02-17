@@ -60,6 +60,6 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
   );
 };
 
-const useSocket = () => useContext(SocketContext);
+const useSocketContext = () => useContext(SocketContext);
 
-export { SocketProvider, useSocket };
+export { SocketProvider, useSocketContext };

@@ -7,9 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useTheme } from "@/theme-provider";
+import { useTheme } from "@/components/theme-provider";
 import { useTranslation } from "react-i18next";
-import { useLayoutStore } from "@/useLayoutStore";
+import { useGlobalStore } from "@/hooks/useGlobalStore";
 import { Theme } from "@/types/theme";
 
 type ThemeOption = {
@@ -20,7 +20,7 @@ type ThemeOption = {
 const ThemeToggle = () => {
   const { setTheme } = useTheme();
   const { t } = useTranslation();
-  const { direction } = useLayoutStore();
+  const { direction } = useGlobalStore();
 
   const themeOptions: ThemeOption[] = [
     { value: "light", icon: Sun },
