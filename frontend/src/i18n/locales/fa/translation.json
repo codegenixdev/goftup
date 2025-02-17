@@ -26,6 +26,8 @@
   "typeAMessage": "پیام خود را وارد کنید",
   "createNewChat": "ایجاد گفتگوی جدید",
   "selectChat": "یک گفتگو را انتخاب کنید",
+  "noMessagesYet": "هنوز پیامی وجود ندارد",
+
   "nav": {
     "home": "خانه",
     "panel": "پنل کاربری"

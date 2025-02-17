@@ -102,12 +102,20 @@ const ChatArea = ({
           className="h-full p-4"
           onScroll={handleScroll}
         >
-          <div className="space-y-4">
-            {localMessages.map((msg: Message) => (
-              <MessageBubble message={msg} viewMode="admin" key={msg.id} />
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
+          {localMessages.length === 0 ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-muted-foreground text-sm">
+                {t("noMessagesYet")}
+              </span>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {localMessages.map((msg: Message) => (
+                <MessageBubble message={msg} viewMode="admin" key={msg.id} />
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+          )}
         </ScrollArea>
 
         {!isNearBottom && (

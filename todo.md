@@ -1,9 +1,5 @@
-add header and footer to sidebar
-add fonts
 eslint
 sort tailwind classes
-make commit message first letter upper case
-gif demo in readme
 animations
 responsive
 client close on escape
@@ -22,3 +18,7 @@ force close message
 
 close button chat area
 responsive
+
+add search for clients
+gif demo in readme
+make commit message first letter upper case

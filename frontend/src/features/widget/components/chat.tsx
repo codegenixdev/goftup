@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SOCKET_EVENTS } from "@/features/agent-panel/constants";
-import { Message } from "@/types/types";
 import { useClientStore } from "@/features/widget/hooks/useClientStore";
-import { useDateFormatters } from "@/useDateFormatters";
+import { MessageBubble } from "@/message-bubble";
+import { Message } from "@/types/types";
 import { useLayoutStore } from "@/useLayoutStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizontal } from "lucide-react";
@@ -13,7 +13,6 @@ import { useEffect, useRef } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
-import { MessageBubble } from "@/message-bubble";
 
 const schema = z.object({
   message: z.string().max(1000).min(1),
@@ -25,7 +24,6 @@ const Chat = () => {
   const { t } = useTranslation();
   const { direction } = useLayoutStore();
   const { socket } = useSocket();
-  const { formatTime } = useDateFormatters();
 
   const {
     clientId,
@@ -102,10 +100,16 @@ const Chat = () => {
 
   return (
     <>
-      <ScrollArea className="flex-1 p-4 overflow-y-auto md:max-h-[400px]">
-        {messages.map((msg: Message) => (
-          <MessageBubble message={msg} viewMode="client" key={msg.id} />
-        ))}
+      <ScrollArea className="flex-1 p-4 overflow-y-auto md:max-h-[400px] relative">
+        {messages.length === 0 ? (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-gray-500 text-sm">{t("noMessagesYet")}</span>
+          </div>
+        ) : (
+          messages.map((msg: Message) => (
+            <MessageBubble message={msg} viewMode="client" key={msg.id} />
+          ))
+        )}
         <div ref={messagesEndRef} />
       </ScrollArea>
 
