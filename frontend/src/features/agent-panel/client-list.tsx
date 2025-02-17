@@ -29,7 +29,7 @@ const ClientsList = ({
   return (
     <div className="flex flex-col p-4 h-full">
       <h2 className="text-xl font-bold mb-4">{t("chats")}</h2>
-      <div className="flex-1 relative">
+      <div className="flex-1 relative overflow-hidden">
         {" "}
         <ScrollArea className="h-[calc(100vh-124px)] absolute inset-0">
           {clients.size === 0 ? (
@@ -40,7 +40,7 @@ const ClientsList = ({
             </>
           ) : (
             Array.from(clients.values()).map((client, index) => (
-              <div key={client.id}>
+              <div className="w-full" key={client.id}>
                 <div
                   className={`p-2 rounded-lg cursor-pointer flex items-center gap-3 ${
                     selectedClient === client.id
@@ -53,7 +53,7 @@ const ClientsList = ({
                     <AvatarFallback>{getInitials(client.name)}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="font-medium">{client.name}</p>
+                    <p className="font-medium truncate w-72">{client.name}</p>
                   </div>
                 </div>
                 {index < Array.from(clients.values()).length - 1 && (

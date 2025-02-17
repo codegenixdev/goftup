@@ -19,3 +19,6 @@ auto focus when widget open
 when the client left, if in admin selected the chat, handle deselecting it automatically
 on message bubble the direction of time is not correct
 force close message
+
+close button chat area
+responsive
