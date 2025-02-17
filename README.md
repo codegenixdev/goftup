@@ -2,7 +2,13 @@
 
 A modern real-time chat application built with React 19, showcasing advanced technical capabilities and best practices. This project serves as a technical demonstration featuring Socket.IO integration, comprehensive internationalization, and robust architecture.
 
-[Live Demo](https://goftup.darkube.app/)
+<div align="center">
+
+### [🔥 Try Live Demo](https://goftup.darkube.app/)
+
+  <img src="./demo.gif" alt="Goftup Demo" width="280"/>
+
+</div>
 
 ## 🚀 Key Features
 
@@ -103,7 +109,3 @@ The project uses various configuration files for different aspects:
 - ESLint and Prettier for code consistency
 - Docker configuration for containerization
 - Nginx configuration for production deployment
-
-## 🙏 Acknowledgments
-
-Special thanks to the team for providing this opportunity to demonstrate technical capabilities through this project.
