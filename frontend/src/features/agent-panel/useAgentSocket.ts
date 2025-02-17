@@ -9,6 +9,9 @@ const useAgentSocket = () => {
     new Map()
   );
   const [clients, setClients] = useState<Map<string, Client>>(new Map());
+  const [lastDisconnectedClient, setLastDisconnectedClient] = useState<
+    string | null
+  >(null);
 
   useEffect(() => {
     if (!socket) return;
@@ -28,9 +31,25 @@ const useAgentSocket = () => {
     };
 
     const handleNewUserMessage = ({ message, conversation }) => {
-      setConversations((prev) =>
-        new Map(prev).set(conversation.clientId, conversation)
-      );
+      setConversations((prev) => {
+        const newMap = new Map(prev);
+        const existingConversation = newMap.get(conversation.clientId);
+        if (existingConversation) {
+          const updatedMessages = [
+            ...new Set([
+              ...existingConversation.messages,
+              ...conversation.messages,
+            ]),
+          ];
+          newMap.set(conversation.clientId, {
+            ...conversation,
+            messages: updatedMessages,
+          });
+        } else {
+          newMap.set(conversation.clientId, conversation);
+        }
+        return newMap;
+      });
     };
 
     const handleUserConnected = ({ clientId, name, conversation }) => {
@@ -51,6 +70,7 @@ const useAgentSocket = () => {
         newMap.delete(clientId);
         return newMap;
       });
+      setLastDisconnectedClient(clientId);
     };
 
     socket.on(
@@ -78,6 +98,7 @@ const useAgentSocket = () => {
     conversations,
     clients,
     sendMessage,
+    lastDisconnectedClient,
   };
 };
 

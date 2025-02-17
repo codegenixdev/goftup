@@ -69,24 +69,31 @@ const Chat = () => {
   useEffect(() => {
     if (!socket || !name) return;
 
-    socket.emit(SOCKET_EVENTS.REGISTER_USER, { clientId, name });
-
-    socket.on(SOCKET_EVENTS.MESSAGE, (msg: Message) => {
+    const handleMessage = (msg: Message) => {
       addMessage(msg);
-    });
+    };
 
-    socket.emit(
-      SOCKET_EVENTS.GET_CLIENT_CONVERSATIONS,
-      { clientId },
-      (response: any) => {
-        if (response.success) {
-          updateMessages(response.data.messages);
+    socket.emit(SOCKET_EVENTS.REGISTER_USER, { clientId, name });
+    socket.on(SOCKET_EVENTS.MESSAGE, handleMessage);
+
+    const getConversations = () => {
+      socket.emit(
+        SOCKET_EVENTS.GET_CLIENT_CONVERSATIONS,
+        { clientId },
+        (response: any) => {
+          if (response.success) {
+            updateMessages(response.data.messages);
+          } else {
+            setTimeout(getConversations, 1000);
+          }
         }
-      }
-    );
+      );
+    };
+
+    getConversations();
 
     return () => {
-      socket.off(SOCKET_EVENTS.MESSAGE);
+      socket.off(SOCKET_EVENTS.MESSAGE, handleMessage);
     };
   }, [socket, clientId, name]);
 

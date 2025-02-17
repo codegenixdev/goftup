@@ -6,7 +6,7 @@ import { SOCKET_EVENTS } from "@/features/agent-panel/constants";
 import { useAgentSocket } from "@/features/agent-panel/useAgentSocket";
 import { usePageTitle } from "@/usePageTitle";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const AgentPanel = () => {
@@ -14,8 +14,14 @@ const AgentPanel = () => {
 
   const { t } = useTranslation();
   const { socket } = useSocket();
-  const { conversations, clients } = useAgentSocket();
+  const { conversations, clients, lastDisconnectedClient } = useAgentSocket();
   const [selectedClient, setSelectedClient] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (lastDisconnectedClient && lastDisconnectedClient === selectedClient) {
+      setSelectedClient(null);
+    }
+  }, [lastDisconnectedClient, selectedClient]);
 
   const handleSendMessage = (message: string) => {
     if (!socket || !selectedClient) return;

@@ -20,19 +20,30 @@ const SocketContext = createContext<SocketContextType>({
 type SocketProviderProps = {
   children: ReactNode;
 };
+
 const SocketProvider = ({ children }: SocketProviderProps) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:2000");
+    const newSocket = io("http://localhost:2000", {
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+    });
 
     newSocket.on("connect", () => {
       setIsConnected(true);
+      console.log("Socket connected");
     });
 
     newSocket.on("disconnect", () => {
       setIsConnected(false);
+      console.log("Socket disconnected");
+    });
+
+    newSocket.on("connect_error", (error) => {
+      console.error("Connection error:", error);
     });
 
     setSocket(newSocket);
@@ -40,7 +51,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
     return () => {
       newSocket.close();
     };
-  }, [setSocket, setIsConnected]);
+  }, []);
 
   return (
     <SocketContext.Provider value={{ socket, isConnected }}>

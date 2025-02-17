@@ -60,7 +60,10 @@ const ChatArea = ({
 
   useEffect(() => {
     if (conversation?.messages) {
-      setLocalMessages(conversation.messages);
+      const uniqueMessages = Array.from(
+        new Map(conversation.messages.map((msg) => [msg.id, msg])).values()
+      );
+      setLocalMessages(uniqueMessages);
     }
   }, [conversation]);
 
@@ -97,16 +100,20 @@ const ChatArea = ({
   }
 
   const onSubmit: SubmitHandler<Schema> = (data) => {
+    if (!selectedClient) return;
+
     const tempMessage: Message = {
-      id: Date.now().toString(),
+      id: `temp-${Date.now()}`,
       text: data.message,
-      clientId: selectedClient!,
+      clientId: selectedClient,
       timestamp: new Date(),
       isFromAgent: true,
     };
+
     setLocalMessages((prev) => [...prev, tempMessage]);
     onSendMessage(data.message);
     form.setValue("message", "");
+    form.reset();
   };
 
   return (
