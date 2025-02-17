@@ -23,8 +23,8 @@ module.exports = {
 		},
 		ecmaVersion: "latest",
 		sourceType: "module",
-		tsconfigRootDir: ".",
-		project: ["./tsconfig.json"],
+		project: "tsconfig.json",
+		tsconfigRootDir: __dirname,
 	},
 	plugins: ["react", "@typescript-eslint", "react-refresh"],
 	settings: {
