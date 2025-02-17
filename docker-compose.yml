@@ -1,8 +1,24 @@
 services:
   goftup-frontend:
     build:
-      context: .
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "4173:80"
     env_file:
-      - .env
+      - ./frontend/.env
+    depends_on:
+      - goftup-backend
+
+  goftup-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "2000:2000"
+    environment:
+      - NODE_ENV=production
+
+networks:
+  default:
+    driver: bridge

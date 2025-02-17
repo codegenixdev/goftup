@@ -9,7 +9,6 @@
 		"dev:expose": "vite --host",
 		"lint": "tsc --noEmit && eslint src/**/*.ts{,x} --cache --max-warnings=0",
 		"build": "npm run lint && vite build --mode production",
-		"docker": "docker compose -f docker/staging/docker-compose.yml up --build -d",
 		"format": "prettier --write ."
 	},
 	"dependencies": {
