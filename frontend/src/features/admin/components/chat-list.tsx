@@ -61,14 +61,11 @@ const ChatList = ({
                       ? "bg-primary/10"
                       : "hover:bg-primary/5"
                   }`}
+                  onClick={() => {
+                    onClientSelect(client.id);
+                  }}
                 >
-                  <div
-                    className="flex items-center gap-3 w-full overflow-hidden"
-                    onClick={() => {
-                      console.log(client);
-                      onClientSelect(client.id);
-                    }}
-                  >
+                  <div className="flex items-center gap-3 w-full overflow-hidden">
                     <Avatar className="flex-shrink-0">
                       <AvatarFallback>
                         {getInitials(client.name)}
