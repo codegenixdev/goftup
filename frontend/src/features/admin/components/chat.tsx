@@ -88,10 +88,7 @@ const Chat = ({ selectedClient, conversation, onSendMessage }: ChatProps) => {
 
 	if (!selectedClient) {
 		return (
-			<div
-				className="flex-1 h-full flex items-center justify-center text-muted-foreground text-center"
-				ref={autoAnimateRef}
-			>
+			<div className="flex-1 h-full flex items-center justify-center text-muted-foreground text-center">
 				<p className="whitespace-nowrap">{t("selectChat")}</p>
 			</div>
 		);
@@ -115,10 +112,10 @@ const Chat = ({ selectedClient, conversation, onSendMessage }: ChatProps) => {
 	};
 
 	return (
-		<div className="flex flex-col h-[calc(100vh-150px)]">
+		<div className="flex flex-col h-[calc(100dvh-150px)]">
 			<div
 				className="flex-1 overflow-hidden relative"
-				style={{ height: "calc(100vh - 200px)" }}
+				style={{ height: "calc(100dvh - 200px)" }}
 			>
 				<ScrollArea
 					ref={scrollAreaRef}

@@ -46,7 +46,7 @@ const ChatList = ({
 		<div className="flex flex-col p-4 h-full">
 			<h2 className="text-xl font-bold mb-4">{t("chats")}</h2>
 			<div className="flex-1 relative overflow-hidden">
-				<ScrollArea className="h-[calc(100vh-124px)] absolute inset-0">
+				<ScrollArea className="h-[calc(100dvh-124px)] absolute inset-0">
 					{clients.size === 0 ? (
 						<>
 							<div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-muted-foreground">

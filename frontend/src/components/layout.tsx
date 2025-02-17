@@ -7,7 +7,7 @@ const Layout = ({ children }: LayoutProps) => {
 	return (
 		<main>
 			<Navbar />
-			<div className="rounded-lg w-full h-[calc(100vh-64px)] px-4 py-4">
+			<div className="rounded-lg w-full h-[calc(100dvh-64px)] px-4 py-4">
 				{children}
 			</div>
 		</main>

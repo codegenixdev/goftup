@@ -47,6 +47,18 @@ const Widget = () => {
 	}, [resetClientId, socket, updateIsWidgetOpen, updateName]);
 
 	useEffect(() => {
+		if (isWidgetOpen) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "unset";
+		}
+
+		return () => {
+			document.body.style.overflow = "unset";
+		};
+	}, [isWidgetOpen]);
+
+	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
 			if (event.key === "Escape" && isWidgetOpen) {
 				updateIsWidgetOpen(false);
@@ -72,7 +84,7 @@ const Widget = () => {
 		>
 			{isWidgetOpen ? (
 				<div
-					className="bg-card rounded-lg shadow-lg w-screen h-screen md:w-[350px] md:h-[500px] flex flex-col overflow-hidden"
+					className="bg-card rounded-lg shadow-lg w-screen h-dvh md:w-[350px] md:h-[500px] flex flex-col overflow-hidden"
 					ref={widgetRef}
 				>
 					<Header />

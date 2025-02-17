@@ -8,7 +8,7 @@ const LandingDemo = () => {
 	usePageTitle();
 
 	return (
-		<div className="h-[calc(100vh-64px)] flex items-center justify-center">
+		<div className="h-[calc(100dvh-80px)] flex items-center justify-center">
 			<div className="max-w-2xl text-center space-y-6 px-4">
 				<h1 className="text-4xl font-bold">{t("demoTitle")}</h1>
 
