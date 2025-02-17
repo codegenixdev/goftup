@@ -80,11 +80,14 @@ const ChatList = ({
 									</div>
 
 									<AlertDialog>
-										<AlertDialogTrigger>
+										<AlertDialogTrigger asChild>
 											<Button
 												variant="ghost"
 												size="icon"
 												className="size-8 flex-shrink-0"
+												onClick={(e) => {
+													e.stopPropagation();
+												}}
 											>
 												<X className="size-4" />
 											</Button>
