@@ -183,6 +183,21 @@ io.on("connection", (socket: Socket) => {
       });
     }
   );
+  socket.on("remove-user", ({ clientId }: { clientId: string }) => {
+    if (agent?.id !== socket.id) return;
+
+    const client = clients.get(clientId);
+    if (client) {
+      io.to(`user-${clientId}`).emit("user-removed");
+    }
+
+    clients.delete(clientId);
+    conversations.delete(clientId);
+
+    if (agent) {
+      agent.emit("user-disconnected", { clientId });
+    }
+  });
 });
 
 // Start server

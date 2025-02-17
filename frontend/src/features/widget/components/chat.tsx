@@ -1,10 +1,12 @@
+import { MessageBubble } from "@/components/message-bubble";
 import { useSocketContext } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useClientStore } from "@/features/widget/hooks/useClientStore";
-import { MessageBubble } from "@/components/message-bubble";
 import { useGlobalStore } from "@/hooks/useGlobalStore";
+import { SOCKET_EVENTS } from "@/lib/constants";
+import { Message } from "@/types/message";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizontal } from "lucide-react";
@@ -12,8 +14,6 @@ import { useEffect, useRef } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
-import { Message } from "@/types/message";
-import { SOCKET_EVENTS } from "@/lib/constants";
 
 const schema = z.object({
   message: z.string().max(1000).min(1),
@@ -24,12 +24,12 @@ const defaultValues: Schema = { message: "" };
 const Chat = () => {
   const { t } = useTranslation();
   const { direction } = useGlobalStore();
+  const { clientId } = useClientStore();
   const { socket } = useSocketContext();
 
   const [autoAnimateRef] = useAutoAnimate();
 
   const {
-    clientId,
     isWidgetOpen,
     updateIsWidgetOpen,
     name,

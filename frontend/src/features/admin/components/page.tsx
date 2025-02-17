@@ -2,9 +2,9 @@ import { useSocketContext } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
 import { Chat } from "@/features/admin/components/chat";
 import { ChatList } from "@/features/admin/components/chat-list";
-import { SOCKET_EVENTS } from "@/lib/constants";
-import { useSocket } from "@/hooks/useSocket";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { useSocket } from "@/hooks/useSocket";
+import { SOCKET_EVENTS } from "@/lib/constants";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -31,6 +31,14 @@ const Page = () => {
     });
   };
 
+  const handleRemoveClient = (clientId: string) => {
+    if (!socket) return;
+    socket.emit(SOCKET_EVENTS.REMOVE_USER, { clientId });
+    if (selectedClient === clientId) {
+      setSelectedClient(null);
+    }
+  };
+
   return (
     <div className="flex h-full gap-4">
       <div
@@ -42,6 +50,7 @@ const Page = () => {
           clients={clients}
           selectedClient={selectedClient}
           onClientSelect={setSelectedClient}
+          onRemoveClient={handleRemoveClient}
         />
       </div>
 

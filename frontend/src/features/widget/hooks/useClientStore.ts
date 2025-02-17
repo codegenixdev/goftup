@@ -1,12 +1,12 @@
 import { createStore } from "@/lib/createStore";
+import { generateClientId } from "@/lib/utils";
 import { Message } from "@/types/message";
-import { nanoid } from "nanoid";
 
 type State = {
   isWidgetOpen: boolean;
   name: string;
-  clientId: string | null;
   messages: Message[];
+  clientId: string;
 };
 
 type Actions = {
@@ -14,6 +14,7 @@ type Actions = {
   updateName: (value: State["name"]) => void;
   updateMessages: (value: State["messages"]) => void;
   addMessage: (value: State["messages"][number]) => void;
+  resetClientId: () => void;
 };
 
 type Store = State & Actions;
@@ -21,9 +22,9 @@ type Store = State & Actions;
 const useClientStore = createStore<Store>(
   (set) => ({
     isWidgetOpen: false,
-    clientId: `client-${nanoid(10)}`,
     name: "",
     messages: [],
+    clientId: generateClientId(),
     updateIsWidgetOpen: (is) =>
       set((state) => {
         state.isWidgetOpen = is;
@@ -39,6 +40,10 @@ const useClientStore = createStore<Store>(
     addMessage: (value) =>
       set((state) => {
         state.messages.push(value);
+      }),
+    resetClientId: () =>
+      set((state) => {
+        state.clientId = generateClientId();
       }),
   }),
   {

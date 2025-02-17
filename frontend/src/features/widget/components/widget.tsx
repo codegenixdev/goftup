@@ -1,8 +1,10 @@
+import { useSocketContext } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
 import { Chat } from "@/features/widget/components/chat";
 import { Header } from "@/features/widget/components/header";
 import { NameForm } from "@/features/widget/components/name-form";
 import { useClientStore } from "@/features/widget/hooks/useClientStore";
+import { SOCKET_EVENTS } from "@/lib/constants";
 import { MessageCircleMore } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,7 +12,10 @@ import { useOnClickOutside } from "usehooks-ts";
 
 const Widget = () => {
   const { t } = useTranslation();
-  const { isWidgetOpen, updateIsWidgetOpen, name } = useClientStore();
+  const { socket } = useSocketContext();
+
+  const { isWidgetOpen, updateIsWidgetOpen, name, updateName, resetClientId } =
+    useClientStore();
 
   const widgetRef = useRef<HTMLDivElement | null>(null);
 
@@ -20,6 +25,22 @@ const Widget = () => {
       updateIsWidgetOpen(false);
     }
   });
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleUserRemoved = () => {
+      updateIsWidgetOpen(false);
+      updateName("");
+      resetClientId();
+    };
+
+    socket.on(SOCKET_EVENTS.USER_REMOVED, handleUserRemoved);
+
+    return () => {
+      socket.off(SOCKET_EVENTS.USER_REMOVED);
+    };
+  }, [socket]);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {

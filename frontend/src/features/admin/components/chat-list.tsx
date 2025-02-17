@@ -1,19 +1,23 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Client } from "@/types/client";
+import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 type ChatListProps = {
   clients: Map<string, Client>;
   selectedClient: string | null;
   onClientSelect: (clientId: string) => void;
+  onRemoveClient: (clientId: string) => void;
 };
 
 const ChatList = ({
   clients,
   selectedClient,
   onClientSelect,
+  onRemoveClient,
 }: ChatListProps) => {
   const { t } = useTranslation();
 
@@ -30,7 +34,6 @@ const ChatList = ({
     <div className="flex flex-col p-4 h-full">
       <h2 className="text-xl font-bold mb-4">{t("chats")}</h2>
       <div className="flex-1 relative overflow-hidden">
-        {" "}
         <ScrollArea className="h-[calc(100vh-124px)] absolute inset-0">
           {clients.size === 0 ? (
             <>
@@ -42,19 +45,41 @@ const ChatList = ({
             Array.from(clients.values()).map((client, index) => (
               <div className="w-full" key={client.id}>
                 <div
-                  className={`p-2 rounded-lg cursor-pointer flex items-center gap-3 ${
+                  className={`p-2 rounded-lg cursor-pointer flex items-center justify-between gap-3 ${
                     selectedClient === client.id
                       ? "bg-primary/10"
                       : "hover:bg-primary/5"
                   }`}
-                  onClick={() => onClientSelect(client.id)}
                 >
-                  <Avatar>
-                    <AvatarFallback>{getInitials(client.name)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-medium truncate w-72">{client.name}</p>
+                  <div
+                    className="flex items-center gap-3 w-full overflow-hidden"
+                    onClick={() => {
+                      console.log(client);
+                      onClientSelect(client.id);
+                    }}
+                  >
+                    <Avatar className="flex-shrink-0">
+                      <AvatarFallback>
+                        {getInitials(client.name)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="overflow-hidden">
+                      <p className="font-medium truncate max-w-[150px]">
+                        {client.name}
+                      </p>
+                    </div>
                   </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-8 flex-shrink-0"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onRemoveClient(client.id);
+                    }}
+                  >
+                    <X className="size-4" />
+                  </Button>
                 </div>
                 {index < Array.from(clients.values()).length - 1 && (
                   <Separator className="my-2" />

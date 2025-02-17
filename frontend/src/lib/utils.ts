@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
+import { nanoid } from "nanoid";
 import { twMerge } from "tailwind-merge";
 
 const cn = (...inputs: ClassValue[]) => {
@@ -10,4 +11,6 @@ const toPersianNumbers = (text: string) => {
   return text.replace(/[0-9]/g, (d) => persianNumbers[Number(d)]);
 };
 
-export { cn, toPersianNumbers };
+const generateClientId = () => `client-${nanoid(10)}`;
+
+export { cn, toPersianNumbers, generateClientId };

@@ -9,6 +9,8 @@ const SOCKET_EVENTS = {
   MESSAGE: "message",
   GET_CLIENT_CONVERSATIONS: "get-client-conversations",
   USER_MESSAGE: "user-message",
+  REMOVE_USER: "remove-user",
+  USER_REMOVED: "user-removed",
 } as const;
 
 export { SOCKET_EVENTS };
