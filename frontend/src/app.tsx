@@ -32,6 +32,11 @@ const App = () => {
                   </>
                 }
               />
+              <Route path="/client" element={<Navigate to="/" replace />} />
+              <Route
+                path="/webapp"
+                element={<Navigate to="/admin" replace />}
+              />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Layout>
