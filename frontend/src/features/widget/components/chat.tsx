@@ -7,6 +7,7 @@ import { useClientStore } from "@/features/widget/hooks/useClientStore";
 import { MessageBubble } from "@/message-bubble";
 import { Message } from "@/types/types";
 import { useLayoutStore } from "@/useLayoutStore";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizontal } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -24,6 +25,8 @@ const Chat = () => {
   const { t } = useTranslation();
   const { direction } = useLayoutStore();
   const { socket } = useSocket();
+
+  const [autoAnimateRef] = useAutoAnimate();
 
   const {
     clientId,
@@ -106,9 +109,11 @@ const Chat = () => {
             <span className="text-gray-500 text-sm">{t("noMessagesYet")}</span>
           </div>
         ) : (
-          messages.map((msg: Message) => (
-            <MessageBubble message={msg} viewMode="client" key={msg.id} />
-          ))
+          <div ref={autoAnimateRef}>
+            {messages.map((msg: Message) => (
+              <MessageBubble message={msg} viewMode="client" key={msg.id} />
+            ))}
+          </div>
         )}
         <div ref={messagesEndRef} />
       </ScrollArea>
@@ -121,6 +126,7 @@ const Chat = () => {
               widgetTheme
               name="message"
               placeholder={t("messagePlaceholder")}
+              autoFocus
             />
             <Button
               className="bg-widget-primary hover:bg-widget-primary/90 rounded-full size-12"

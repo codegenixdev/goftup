@@ -1,13 +1,13 @@
 import { useSocket } from "@/components/socket-context";
+import { Button } from "@/components/ui/button";
 import { ChatArea } from "@/features/agent-panel/chat-area";
 import { ClientsList } from "@/features/agent-panel/client-list";
 import { SOCKET_EVENTS } from "@/features/agent-panel/constants";
 import { useAgentSocket } from "@/features/agent-panel/useAgentSocket";
+import { usePageTitle } from "@/usePageTitle";
 import { X } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
-import { usePageTitle } from "@/usePageTitle";
 
 const AgentPanel = () => {
   usePageTitle("adminTitle");
@@ -30,7 +30,7 @@ const AgentPanel = () => {
       <div
         className={`${
           selectedClient ? "hidden md:block" : "block"
-        } w-full md:w-96 shadow-2xl rounded-lg`}
+        } w-full md:w-96 shadow-2xl rounded-lg bg-card`}
       >
         <ClientsList
           clients={clients}
@@ -42,7 +42,7 @@ const AgentPanel = () => {
       <div
         className={`${
           !selectedClient ? "hidden md:block" : "block"
-        } w-full shadow-2xl rounded-lg h-full`}
+        } w-full shadow-2xl rounded-lg h-full bg-card`}
       >
         {selectedClient && (
           <div className="h-14 border-b flex items-center justify-between px-4">

@@ -14,7 +14,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <main>
       <Navbar />
-      <div className="rounded-lg w-full h-[calc(100vh-80px)] px-4">
+      <div className="rounded-lg w-full h-[calc(100vh-64px)] px-4 py-4">
         {children}
       </div>
     </main>
