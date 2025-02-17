@@ -17,7 +17,7 @@ type ThemeOption = {
   icon: LucideIcon;
 };
 
-const ModeToggle = () => {
+const ThemeToggle = () => {
   const { setTheme } = useTheme();
   const { t } = useTranslation();
   const { direction } = useLayoutStore();
@@ -54,4 +54,4 @@ const ModeToggle = () => {
   );
 };
 
-export { ModeToggle };
+export { ThemeToggle };

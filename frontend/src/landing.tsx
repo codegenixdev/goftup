@@ -19,8 +19,6 @@ const Landing = () => {
 
         <Link
           to="/admin"
-          target="_blank"
-          rel="noopener noreferrer"
           className="block mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors"
         >
           <p className="text-blue-800">{t("adminInstruction")}</p>

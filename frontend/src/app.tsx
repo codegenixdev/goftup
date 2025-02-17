@@ -12,9 +12,9 @@ import { makeZodI18nMap } from "zod-i18n-map";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="h-[calc(100vh-64px)] container mx-auto m-6">
-      {/* <Navbar /> */}
-      <div className="rounded-xl size-full">{children}</div>
+    <main className="container mx-auto">
+      <Navbar />
+      <div className="rounded-lg w-full h-[calc(100vh-100px)]">{children}</div>
     </main>
   );
 };
@@ -42,11 +42,10 @@ const App = () => {
             <Route
               path="/"
               element={
-                <>
-                  <Navbar />
+                <Layout>
                   <Landing />
                   <Widget />
-                </>
+                </Layout>
               }
             />
             <Route path="*" element={<Navigate to="/" replace />} />

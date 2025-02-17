@@ -3,7 +3,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Client } from "@/types/types";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
 
 interface ClientsListProps {
   clients: Map<string, Client>;
@@ -32,19 +31,11 @@ const ClientsList = ({
       <h2 className="text-xl font-bold mb-4">{t("chats")}</h2>
       <div className="flex-1 relative">
         {" "}
-        <ScrollArea className="h-[calc(100vh-100px)] absolute inset-0">
+        <ScrollArea className="h-[calc(100vh-124px)] absolute inset-0">
           {clients.size === 0 ? (
             <>
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-muted-foreground">
                 {t("noChats")}
-                <Link
-                  to="/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline text-sm hover:text-primary/80 transition-colors"
-                >
-                  {t("createNewChat")}
-                </Link>
               </div>
             </>
           ) : (
