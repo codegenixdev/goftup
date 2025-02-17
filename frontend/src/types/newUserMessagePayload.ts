@@ -1,7 +1,7 @@
 import { Conversation } from "@/types/conversation";
 
 type NewUserMessagePayload = {
-  conversation: Conversation;
+	conversation: Conversation;
 };
 
 export { type NewUserMessagePayload };

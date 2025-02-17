@@ -1,70 +1,70 @@
 {
-  "admin": "Admin",
-  "adminTitle": "User Panel",
-  "slogan": "Smart Connection, Easy Conversation",
-  "client": "User",
-  "chats": "Chats",
-  "home": "Home",
-  "welcome": "Welcome to Chat Support",
-  "enterName": "Please enter your name",
-  "namePlaceholder": "Your name",
-  "startChat": "Start Chat",
-  "onlineSupport": "Online Support",
-  "close": "Close",
-  "messagePlaceholder": "Type your message...",
-  "send": "Send",
-  "openChat": "Open Chat",
-  "WeAreAnsweringYourQuestions": "We are answering your questions",
-  "toggle": "Toggle Theme",
-  "light": "Light",
-  "dark": "Dark",
-  "noChats": "No chats found",
-  "system": "System",
-  "brand": "Goftup",
-  "demoTitle": "Online Chat Demo Page",
-  "chat": "Chat",
-  "demoDescription": "This is a demo page to showcase online chat capabilities",
-  "demoInstruction": "💡 Click on the chat icon in the bottom right corner to start a conversation",
-  "adminInstruction": "📊 Click to view admin panel or access through navbar",
-  "typeAMessage": "Type your message",
-  "createNewChat": "Create New Chat",
-  "selectChat": "Select a chat",
-  "noMessagesYet": "No messages yet",
-  "areYouSure": "Are you sure?",
-  "deleteChatWarning": "This action cannot be undone. This user's chat will be permanently deleted.",
-  "cancel": "Cancel",
-  "continue": "Continue",
+	"admin": "Admin",
+	"adminTitle": "User Panel",
+	"slogan": "Smart Connection, Easy Conversation",
+	"client": "User",
+	"chats": "Chats",
+	"home": "Home",
+	"welcome": "Welcome to Chat Support",
+	"enterName": "Please enter your name",
+	"namePlaceholder": "Your name",
+	"startChat": "Start Chat",
+	"onlineSupport": "Online Support",
+	"close": "Close",
+	"messagePlaceholder": "Type your message...",
+	"send": "Send",
+	"openChat": "Open Chat",
+	"WeAreAnsweringYourQuestions": "We are answering your questions",
+	"toggle": "Toggle Theme",
+	"light": "Light",
+	"dark": "Dark",
+	"noChats": "No chats found",
+	"system": "System",
+	"brand": "Goftup",
+	"demoTitle": "Online Chat Demo Page",
+	"chat": "Chat",
+	"demoDescription": "This is a demo page to showcase online chat capabilities",
+	"demoInstruction": "💡 Click on the chat icon in the bottom right corner to start a conversation",
+	"adminInstruction": "📊 Click to view admin panel or access through navbar",
+	"typeAMessage": "Type your message",
+	"createNewChat": "Create New Chat",
+	"selectChat": "Select a chat",
+	"noMessagesYet": "No messages yet",
+	"areYouSure": "Are you sure?",
+	"deleteChatWarning": "This action cannot be undone. This user's chat will be permanently deleted.",
+	"cancel": "Cancel",
+	"continue": "Continue",
 
-  "nav": {
-    "home": "Home",
-    "panel": "User Panel"
-  },
-  "errors": {
-    "invalid": "Invalid",
-    "required": "Required",
-    "tooManyCharacters": "Too many characters",
-    "invalid_type": "Expected {{expected}}, received {{received}}",
-    "invalid_type_received_undefined": "Required",
-    "invalid_literal": "Invalid",
-    "invalid_union": "Invalid input",
-    "custom": "Invalid input",
-    "invalid_string": {
-      "email": "Invalid {{validation}}",
-      "regex": "Invalid"
-    },
-    "too_small": {
-      "string": {
-        "exact": "String must contain exactly {{minimum}} character(s)",
-        "inclusive": "Required",
-        "not_inclusive": "String must be greater than {{minimum}} character(s)"
-      }
-    },
-    "too_big": {
-      "string": {
-        "exact": "String must contain exactly {{maximum}} character(s)",
-        "inclusive": "Maximum {{maximum}} characters",
-        "not_inclusive": "String must be less than {{maximum}} character(s)"
-      }
-    }
-  }
+	"nav": {
+		"home": "Home",
+		"panel": "User Panel"
+	},
+	"errors": {
+		"invalid": "Invalid",
+		"required": "Required",
+		"tooManyCharacters": "Too many characters",
+		"invalid_type": "Expected {{expected}}, received {{received}}",
+		"invalid_type_received_undefined": "Required",
+		"invalid_literal": "Invalid",
+		"invalid_union": "Invalid input",
+		"custom": "Invalid input",
+		"invalid_string": {
+			"email": "Invalid {{validation}}",
+			"regex": "Invalid"
+		},
+		"too_small": {
+			"string": {
+				"exact": "String must contain exactly {{minimum}} character(s)",
+				"inclusive": "Required",
+				"not_inclusive": "String must be greater than {{minimum}} character(s)"
+			}
+		},
+		"too_big": {
+			"string": {
+				"exact": "String must contain exactly {{maximum}} character(s)",
+				"inclusive": "Maximum {{maximum}} characters",
+				"not_inclusive": "String must be less than {{maximum}} character(s)"
+			}
+		}
+	}
 }

@@ -1,5 +1,5 @@
 type UserDisconnectedPayload = {
-  clientId: string;
+	clientId: string;
 };
 
 export { type UserDisconnectedPayload };

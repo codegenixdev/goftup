@@ -1,64 +1,66 @@
-import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
-import { cn } from "@/lib/utils";
 import { useGlobalStore } from "@/hooks/useGlobalStore";
+
+import { cn } from "@/lib/utils";
+
+import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 import { ComponentProps } from "react";
 
 type ScrollAreaProps = ComponentProps<typeof ScrollAreaPrimitive.Root>;
 
 const ScrollArea = ({ className, children, ...props }: ScrollAreaProps) => {
-  const { direction } = useGlobalStore();
+	const { direction } = useGlobalStore();
 
-  return (
-    <ScrollAreaPrimitive.Root
-      data-slot="scroll-area"
-      className={cn("relative", className)}
-      dir={direction}
-      {...props}
-    >
-      <ScrollAreaPrimitive.Viewport
-        data-slot="scroll-area-viewport"
-        className="ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] focus-visible:ring-4 focus-visible:outline-1"
-      >
-        {children}
-      </ScrollAreaPrimitive.Viewport>
-      <ScrollBar />
-      <ScrollAreaPrimitive.Corner />
-    </ScrollAreaPrimitive.Root>
-  );
+	return (
+		<ScrollAreaPrimitive.Root
+			data-slot="scroll-area"
+			className={cn("relative", className)}
+			dir={direction}
+			{...props}
+		>
+			<ScrollAreaPrimitive.Viewport
+				data-slot="scroll-area-viewport"
+				className="ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] focus-visible:ring-4 focus-visible:outline-1"
+			>
+				{children}
+			</ScrollAreaPrimitive.Viewport>
+			<ScrollBar />
+			<ScrollAreaPrimitive.Corner />
+		</ScrollAreaPrimitive.Root>
+	);
 };
 
 type ScrollBarProps = ComponentProps<
-  typeof ScrollAreaPrimitive.ScrollAreaScrollbar
+	typeof ScrollAreaPrimitive.ScrollAreaScrollbar
 > & {};
 const ScrollBar = ({
-  className,
-  orientation = "vertical",
-  ...props
+	className,
+	orientation = "vertical",
+	...props
 }: ScrollBarProps) => {
-  const { direction } = useGlobalStore();
+	const { direction } = useGlobalStore();
 
-  return (
-    <ScrollAreaPrimitive.ScrollAreaScrollbar
-      data-slot="scroll-area-scrollbar"
-      orientation={orientation}
-      className={cn(
-        "flex touch-none p-px transition-colors select-none",
-        orientation === "vertical" &&
-          "h-full w-2.5 border-l border-l-transparent",
-        orientation === "horizontal" &&
-          "h-2.5 flex-col border-t border-t-transparent",
-        direction === "rtl" && orientation === "vertical" && "left-0",
-        direction === "ltr" && orientation === "vertical" && "right-0",
-        className
-      )}
-      {...props}
-    >
-      <ScrollAreaPrimitive.ScrollAreaThumb
-        data-slot="scroll-area-thumb"
-        className="bg-border relative flex-1 rounded-full"
-      />
-    </ScrollAreaPrimitive.ScrollAreaScrollbar>
-  );
+	return (
+		<ScrollAreaPrimitive.ScrollAreaScrollbar
+			data-slot="scroll-area-scrollbar"
+			orientation={orientation}
+			className={cn(
+				"flex touch-none p-px transition-colors select-none",
+				orientation === "vertical" &&
+					"h-full w-2.5 border-l border-l-transparent",
+				orientation === "horizontal" &&
+					"h-2.5 flex-col border-t border-t-transparent",
+				direction === "rtl" && orientation === "vertical" && "left-0",
+				direction === "ltr" && orientation === "vertical" && "right-0",
+				className
+			)}
+			{...props}
+		>
+			<ScrollAreaPrimitive.ScrollAreaThumb
+				data-slot="scroll-area-thumb"
+				className="bg-border relative flex-1 rounded-full"
+			/>
+		</ScrollAreaPrimitive.ScrollAreaScrollbar>
+	);
 };
 
 export { ScrollArea, ScrollBar };
