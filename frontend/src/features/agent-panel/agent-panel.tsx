@@ -7,8 +7,11 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { usePageTitle } from "@/usePageTitle";
 
 const AgentPanel = () => {
+  usePageTitle("adminTitle");
+
   const { t } = useTranslation();
   const { socket } = useSocket();
   const { conversations, clients } = useAgentSocket();

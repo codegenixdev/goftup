@@ -24,6 +24,13 @@ const Navbar = () => {
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-4">
+            <Link
+              to="/"
+              className="flex items-center gap-2 font-bold text-lg mr-4"
+            >
+              <img src="/logo.png" alt="Logo" className="h-7 w-auto" />
+              {t("brand")}
+            </Link>
             <Link to="/" className={getLinkClasses("/")}>
               {t("nav.home")}
             </Link>

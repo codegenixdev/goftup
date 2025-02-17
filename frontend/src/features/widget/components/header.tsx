@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useClientStore } from "@/features/widget/hooks/useClientStore";
 import { useTranslation } from "react-i18next";
 import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -26,13 +27,14 @@ const Header = () => {
           </p>
         </div>
       </div>
-      <button
+      <Button
         onClick={handleClose}
-        className="p-2 rounded-full hover:bg-gray-700/50 transition-colors"
+        variant="ghost"
+        className="rounded-full hover:bg-gray-700/50 transition-colors size-10"
         aria-label={t("close")}
       >
         <X className="size-5 text-gray-50" />
-      </button>
+      </Button>
     </div>
   );
 };

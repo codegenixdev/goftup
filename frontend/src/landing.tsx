@@ -1,8 +1,10 @@
+import { usePageTitle } from "@/usePageTitle";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
 const Landing = () => {
   const { t } = useTranslation();
+  usePageTitle();
 
   return (
     <div className="h-[calc(100vh-64px)] flex items-center justify-center">
@@ -10,18 +12,18 @@ const Landing = () => {
         <h1 className="text-4xl font-bold">{t("demoTitle")}</h1>
 
         <div className="space-y-4">
-          <p className="text-lg">{t("demoDescription")}</p>
+          <p className="text-lg">{t("demoDescription")}.</p>
 
-          <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-            <p className="text-yellow-800">{t("demoInstruction")}</p>
+          <div className="bg-widget-primary/20 p-4 rounded-lg border border-widget-primary/50">
+            <p>{t("demoInstruction")}.</p>
           </div>
         </div>
 
         <Link
           to="/admin"
-          className="block mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors"
+          className="block mt-8 p-4 bg-primary/20 rounded-lg border border-primary/50 hover:bg-primary/30 transition-colors"
         >
-          <p className="text-blue-800">{t("adminInstruction")}</p>
+          <p>{t("adminInstruction")}.</p>
         </Link>
       </div>
     </div>
