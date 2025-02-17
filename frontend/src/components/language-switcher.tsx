@@ -36,19 +36,19 @@ const LanguageSwitcher = () => {
 
 	useEffect(() => {
 		if (language) {
-			i18n.changeLanguage(language);
+			void i18n.changeLanguage(language);
 			const dir = language === "fa" ? "rtl" : "ltr";
 			updateHtmlAttributes(language, dir);
 			updateDirection(dir);
 		}
-	}, []);
+	}, [i18n, language, updateDirection]);
 
 	const handleLanguageChange = (lang: Language) => {
 		const dir = lang === "fa" ? "rtl" : "ltr";
 		updateLanguage(lang);
 		updateDirection(dir);
 		updateHtmlAttributes(lang, dir);
-		i18n.changeLanguage(lang);
+		void i18n.changeLanguage(lang);
 	};
 
 	return (

@@ -3,8 +3,8 @@ import { ChatList } from "@/features/admin/components/chat-list";
 
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useSocket } from "@/hooks/useSocket";
+import { useSocketContext } from "@/hooks/useSocketContext";
 
-import { useSocketContext } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
 import { SOCKET_EVENTS } from "@/lib/constants";
 

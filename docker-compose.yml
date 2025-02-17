@@ -1,0 +1,8 @@
+services:
+  goftup-frontend:
+    build:
+      context: .
+    ports:
+      - "4173:80"
+    env_file:
+      - .env

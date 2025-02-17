@@ -3,7 +3,8 @@ import { Header } from "@/features/widget/components/header";
 import { NameForm } from "@/features/widget/components/name-form";
 import { useClientStore } from "@/features/widget/hooks/useClientStore";
 
-import { useSocketContext } from "@/components/socket-context";
+import { useSocketContext } from "@/hooks/useSocketContext";
+
 import { Button } from "@/components/ui/button";
 import { SOCKET_EVENTS } from "@/lib/constants";
 
@@ -21,7 +22,8 @@ const Widget = () => {
 
 	const widgetRef = useRef<HTMLDivElement | null>(null);
 
-	// @ts-ignore
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-expect-error
 	useOnClickOutside(widgetRef, () => {
 		if (isWidgetOpen) {
 			updateIsWidgetOpen(false);
@@ -42,7 +44,7 @@ const Widget = () => {
 		return () => {
 			socket.off(SOCKET_EVENTS.USER_REMOVED);
 		};
-	}, [socket]);
+	}, [resetClientId, socket, updateIsWidgetOpen, updateName]);
 
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {

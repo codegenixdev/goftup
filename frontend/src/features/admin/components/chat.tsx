@@ -54,7 +54,7 @@ const Chat = ({ selectedClient, conversation, onSendMessage }: ChatProps) => {
 				form.setValue("message", "");
 			}, 0);
 		}
-	}, [selectedClient]);
+	}, [form, selectedClient]);
 
 	useEffect(() => {
 		if (conversation?.messages) {
@@ -80,7 +80,7 @@ const Chat = ({ selectedClient, conversation, onSendMessage }: ChatProps) => {
 		if (isNearBottom) {
 			scrollToBottom();
 		}
-	}, [localMessages]);
+	}, [isNearBottom, localMessages]);
 
 	useEffect(() => {
 		scrollToBottom("auto");

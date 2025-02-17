@@ -1,10 +1,4 @@
-import {
-	ReactNode,
-	createContext,
-	useContext,
-	useEffect,
-	useState,
-} from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { Socket, io } from "socket.io-client";
 
 type SocketContextType = {
@@ -34,15 +28,18 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
 
 		newSocket.on("connect", () => {
 			setIsConnected(true);
+			// eslint-disable-next-line no-console
 			console.log("Socket connected");
 		});
 
 		newSocket.on("disconnect", () => {
 			setIsConnected(false);
+			// eslint-disable-next-line no-console
 			console.log("Socket disconnected");
 		});
 
 		newSocket.on("connect_error", (error) => {
+			// eslint-disable-next-line no-console
 			console.error("Connection error:", error);
 		});
 
@@ -60,6 +57,4 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
 	);
 };
 
-const useSocketContext = () => useContext(SocketContext);
-
-export { SocketProvider, useSocketContext };
+export { SocketProvider, SocketContext };

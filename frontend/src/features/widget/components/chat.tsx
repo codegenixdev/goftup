@@ -1,9 +1,9 @@
 import { useClientStore } from "@/features/widget/hooks/useClientStore";
 
 import { useGlobalStore } from "@/hooks/useGlobalStore";
+import { useSocketContext } from "@/hooks/useSocketContext";
 
 import { MessageBubble } from "@/components/message-bubble";
-import { useSocketContext } from "@/components/socket-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -67,7 +67,7 @@ const Chat = () => {
 		return () => {
 			document.removeEventListener("keydown", handleEscapeKey);
 		};
-	}, [isWidgetOpen]);
+	}, [isWidgetOpen, updateIsWidgetOpen]);
 
 	useEffect(() => {
 		if (!socket || !name) return;
@@ -83,7 +83,7 @@ const Chat = () => {
 			socket.emit(
 				SOCKET_EVENTS.GET_CLIENT_CONVERSATIONS,
 				{ clientId },
-				(response: any) => {
+				(response: { success: boolean; data: { messages: Message[] } }) => {
 					if (response.success) {
 						updateMessages(response.data.messages);
 					} else {
@@ -98,7 +98,7 @@ const Chat = () => {
 		return () => {
 			socket.off(SOCKET_EVENTS.MESSAGE, handleMessage);
 		};
-	}, [socket, clientId, name]);
+	}, [socket, clientId, name, addMessage, updateMessages]);
 
 	const onSubmit: SubmitHandler<Schema> = (data) => {
 		if (!socket || !data.message.trim()) return;

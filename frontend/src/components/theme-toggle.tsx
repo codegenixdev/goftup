@@ -1,6 +1,6 @@
 import { useGlobalStore } from "@/hooks/useGlobalStore";
+import { useThemeContext } from "@/hooks/useThemeContext";
 
-import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -19,7 +19,7 @@ type ThemeOption = {
 };
 
 const ThemeToggle = () => {
-	const { setTheme } = useTheme();
+	const { setTheme } = useThemeContext();
 	const { t } = useTranslation();
 	const { direction } = useGlobalStore();
 

@@ -1,4 +1,5 @@
-import { useSocketContext } from "@/components/socket-context";
+import { useSocketContext } from "@/hooks/useSocketContext";
+
 import { SOCKET_EVENTS } from "@/lib/constants";
 import { Client } from "@/types/client";
 import { Conversation } from "@/types/conversation";

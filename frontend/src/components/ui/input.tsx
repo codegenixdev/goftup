@@ -64,6 +64,7 @@ const Input = <T extends FieldValues>({
 					id={`${name}-error`}
 					role="alert"
 				>
+					{/* eslint-disable-next-line @typescript-eslint/no-base-to-string */}
 					{error.message?.toString()}
 				</p>
 			)}
