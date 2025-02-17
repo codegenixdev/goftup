@@ -8,25 +8,56 @@ type MessageProps = {
 
 const MessageBubble = ({ message, viewMode }: MessageProps) => {
   const { formatTime } = useDateFormatters();
+  const { isFromAgent } = message;
 
-  const alignmentMap = {
-    admin: message.isFromAgent ? "ms-auto" : "me-auto",
-    client: message.isFromAgent ? "me-auto" : "ms-auto",
+  const getAlignment = () => {
+    if (viewMode === "admin") {
+      return isFromAgent ? "ms-auto" : "me-auto";
+    }
+    return isFromAgent ? "me-auto" : "ms-auto";
+  };
+
+  const getFlexDirection = () => {
+    const shouldReverse =
+      (viewMode === "admin" && !isFromAgent) ||
+      (viewMode === "client" && isFromAgent);
+
+    return shouldReverse ? "flex-row-reverse" : "";
+  };
+
+  const getBackgroundColor = () => {
+    if (isFromAgent) {
+      return "bg-background";
+    }
+    return viewMode === "admin" ? "bg-primary" : "bg-widget-primary";
   };
 
   return (
-    <div className={`flex items-center gap-2 w-fit ${alignmentMap[viewMode]}`}>
+    <div
+      className={`
+        flex 
+        items-center 
+        gap-2 
+        w-fit 
+        ${getAlignment()} 
+        ${getFlexDirection()}
+      `}
+    >
       <span className="text-xs text-muted-foreground">
         {formatTime(message.timestamp)}
       </span>
       <div
-        className={`mb-2 p-2 rounded-lg max-w-52 break-words ${
-          message.isFromAgent
-            ? "bg-background"
-            : `${viewMode === "admin" ? "bg-primary" : "bg-widget-primary"}`
-        }`}
+        className={`
+          mb-2 
+          p-2 
+          rounded-lg 
+          max-w-52 
+          break-words 
+          bg-foreground/10
+          ${getBackgroundColor()}
+        `}
       >
-        <p className={`text-sm ${message.isFromAgent ? "" : "text-gray-50"}`}>
+        <p className={`text-sm ${!isFromAgent && "text-gray-50"}`}>
           {message.text}
         </p>
       </div>

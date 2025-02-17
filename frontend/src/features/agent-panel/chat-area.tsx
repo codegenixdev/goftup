@@ -93,12 +93,6 @@ const ChatArea = ({
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b">
-        <h3 className="font-semibold">
-          Chat with {conversation?.clientName || "Client"}
-        </h3>
-      </div>
-
       <div
         className="flex-1 overflow-hidden relative"
         style={{ height: "calc(100vh - 200px)" }}
