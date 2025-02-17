@@ -26,7 +26,7 @@ const SocketProvider = ({ children }: SocketProviderProps) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:2000", {
+    const newSocket = io(import.meta.env.VITE_SOCKET_URL, {
       reconnection: true,
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
